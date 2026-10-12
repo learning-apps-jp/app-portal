@@ -1,5 +1,7 @@
 # アプリの棚
 
+公開URL: https://learning-apps-jp.github.io/app-portal/
+
 公開したWebアプリを、PC・スマートフォンから使うためのポータルです。
 
 - アプリを新しいタブで開く
