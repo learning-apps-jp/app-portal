@@ -21,6 +21,6 @@ GitHub Pagesの公開サイトです。ポータルに認証はなく、既定�
 
 `node scripts/serve.mjs` で http://127.0.0.1:4173 を開きます。ビルド・有料サービス・外部APIは不要です。QRコード生成用の qrcode-generator 1.4.4 を同梱しています（MIT、`vendor/qrcode.js` 内の著作権表示参照）。
 
-公開ファイル：`index.html`、`workspace.css`、`dark-glass.css`、`app.js`、`apps.js`、`icon.svg`、`vendor/`、`.nojekyll`。
+公開ファイル：`index.html`、`workspace.css`、`light-glass.css`、`app.js`、`apps.js`、`icon.svg`、`vendor/`、`.nojekyll`。
 
-B案のダークガラスUI。濃紺の背景とガラス調カード、光沢のある紫のボタン、立体アイコンを使用。`workspace.css` がレイアウトを、`dark-glass.css` が外観を担当します。登録数・お気に入り数・カテゴリ数は保存データから計算します。PCは幅に応じて2〜3列、スマートフォンは1列に切り替わります。
+A案のライトガラスUI。明るいラベンダーと水色の背景、透明感のあるカード、光沢のある紫のボタン、立体アイコンを使用。`workspace.css` がレイアウトを、`light-glass.css` が外観を担当します。登録数・お気に入り数・カテゴリ数は保存データから計算します。PCは幅に応じて2〜3列、スマートフォンは1列に切り替わります。
