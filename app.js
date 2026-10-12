@@ -27,6 +27,7 @@ async function copyURL(url){try{if(navigator.clipboard?.writeText){await navigat
 function showQR(a){try{const qr=qrcode(0,'M');qr.addData(a.url);qr.make();$('#qr-image').innerHTML=qr.createSvgTag({cellSize:5,margin:20,scalable:true});$('#qr-name').textContent=a.name;$('#qr-url').textContent=a.url;qrApp=a;$('#qr-dialog').showModal();}catch{toast('QRコードを生成できませんでした。URLが長すぎる場合は短いURLを使ってください。');}}
 function download(blob,name){const url=URL.createObjectURL(blob),a=el('a');a.href=url;a.download=name;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),10000);}
 $('#qr-copy').onclick=()=>qrApp&&copyURL(qrApp.url);
+$('#portal-qr').onclick=()=>showQR({id:'app-portal',name:'アプリの棚（このポータル）',url:'https://learning-apps-jp.github.io/app-portal/'});
 $('#qr-download').onclick=()=>{if(qrApp)download(new Blob([$('#qr-image').innerHTML],{type:'image/svg+xml'}),`qr-${qrApp.id}.svg`);};
 function edit(a=null){editing=a;$('#edit-form').reset();$('#form-error').textContent='';$('#edit-title').textContent=a?'アプリを編集':'アプリを追加';if(a)for(const k of ['name','url','description','category'])$('#edit-form').elements[k].value=a[k];$('#edit-dialog').showModal();}
 $('#add').onclick=()=>edit();
