@@ -1,0 +1,4 @@
+.work-dashboard/
+node_modules/
+test-results/
+scripts/verified-apps.json
