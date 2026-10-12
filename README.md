@@ -21,4 +21,6 @@ GitHub Pagesの公開サイトです。ポータルに認証はなく、既定�
 
 `node scripts/serve.mjs` で http://127.0.0.1:4173 を開きます。ビルド・有料サービス・外部APIは不要です。QRコード生成用の qrcode-generator 1.4.4 を同梱しています（MIT、`vendor/qrcode.js` 内の著作権表示参照）。
 
-公開ファイル：`index.html`、`style.css`、`app.js`、`apps.js`、`icon.svg`、`vendor/`、`.nojekyll`。
+公開ファイル：`index.html`、`workspace.css`、`app.js`、`apps.js`、`icon.svg`、`vendor/`、`.nojekyll`。
+
+ネイビーとインディゴを基調にしたUI。登録数・お気に入り数・カテゴリ数は保存データから計算します。PCは幅に応じて2〜3列、スマートフォンは1列に切り替わります。

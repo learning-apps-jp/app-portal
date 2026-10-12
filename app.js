@@ -15,11 +15,33 @@ function save(next){try{localStorage.setItem(KEY,JSON.stringify(next));state=nex
 const all=()=>[...window.DEFAULT_APPS,...state.custom];
 function el(tag,className,text){const n=document.createElement(tag);if(className)n.className=className;if(text!==undefined)n.textContent=text;return n;}
 function button(label,action,className){const b=el('button',className,label);b.type='button';b.addEventListener('click',action);return b;}
+function appIcon(id){
+ const icons={
+  'speed-experiment-camera':'<rect x="3" y="5" width="14" height="14" rx="3"/><path d="m17 10 4-3v10l-4-3"/><circle cx="10" cy="12" r="3"/>',
+  'solar-system-lab':'<circle cx="12" cy="12" r="4"/><ellipse cx="12" cy="12" rx="11" ry="5" transform="rotate(-30 12 12)"/><circle cx="20" cy="7" r="1.5" fill="currentColor" stroke="none"/>',
+  'constellations':'<path d="m12 3 2.5 6.5L21 12l-6.5 2.5L12 21l-2.5-6.5L3 12l6.5-2.5Z"/><path d="M20 2v4m-2-2h4"/>',
+  'smart-seat-planner':'<rect x="3" y="3" width="18" height="18" rx="3"/><path d="M3 9h18M3 15h18M9 3v18m6-18v18"/>',
+  'class-gacha':'<rect x="3" y="3" width="18" height="18" rx="4"/><g fill="currentColor" stroke="none"><circle cx="8" cy="8" r="1.4"/><circle cx="16" cy="8" r="1.4"/><circle cx="12" cy="12" r="1.4"/><circle cx="8" cy="16" r="1.4"/><circle cx="16" cy="16" r="1.4"/></g>',
+  'timetable-app':'<rect x="3" y="5" width="18" height="16" rx="3"/><path d="M7 3v4m10-4v4M3 11h18M8 15h2m4 0h2m-8 3h2"/>',
+  'game-home':'<path d="M7 7h10c3 0 5 11 3 12-2 1-4-3-6-3h-4c-2 0-4 4-6 3C2 18 4 7 7 7Z"/><path d="M8 10v5m-2.5-2.5h5m5.5-1.5h.1m2 3h.1"/>',
+  'name-forest':'<path d="m12 3 5 6h-3l5 6h-5v6h-4v-6H5l5-6H7Z"/>',
+  'werewolf':'<path d="M20 14.5A8 8 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5Z"/><path d="M18 3v4m-2-2h4"/>',
+  'word-wolf':'<path d="M4 4h16v12H10l-6 4V4Z"/><path d="M8 8h8m-8 4h5"/>',
+  'oekaki-dengon':'<path d="m15 4 5 5M4 20l1-5L17 3a2 2 0 0 1 3 3L8 18l-4 2Z"/>',
+  'sanrentan-game':'<path d="M4 20V10h5v10m1 0V4h5v16m1 0v-7h5v7M2 20h21"/>',
+  'one-night-werewolf':'<path d="M20 14.5A8 8 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5Z"/><path d="m17 3 1 2 2 1-2 1-1 2-1-2-2-1 2-1Z"/>'
+ };
+ return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${icons[id]||'<path d="M7 17 17 7M7 7h10v10"/>'}</svg>`;
+}
 function render(){
+ $('#total-count').textContent=all().length;
+ $('#favorite-count').textContent=state.favorites.length;
+ $('#category-count').textContent=new Set(all().map(a=>a.category)).size;
  const query=$('#search').value.trim().toLocaleLowerCase();let apps=all().filter(a=>(filter==='all'||(filter==='favorites'?state.favorites.includes(a.id):a.category===filter))&&`${a.name} ${a.description} ${a.category} ${a.url}`.toLocaleLowerCase().includes(query));
  if($('#sort').value==='name')apps.sort((a,b)=>a.name.localeCompare(b.name,'ja'));
  $('#grid').replaceChildren();$('#count').textContent=apps.length;$('#empty').hidden=apps.length>0;
  for(const a of apps){const card=el('article','card'),top=el('div','card-top'),icon=el('span',`app-icon ${a.color}`,a.icon);icon.setAttribute('aria-hidden','true');const fav=button(state.favorites.includes(a.id)?'★':'☆',()=>{const favorites=state.favorites.includes(a.id)?state.favorites.filter(id=>id!==a.id):[...state.favorites,a.id];if(save({...state,favorites}))render();},'favorite');fav.setAttribute('aria-label',`${a.name}のお気に入り`);fav.setAttribute('aria-pressed',String(state.favorites.includes(a.id)));top.append(icon,fav);
+ icon.innerHTML=appIcon(a.id);
  const actions=el('div','card-actions'),link=el('a','open','アプリをひらく ↗');link.href=a.url;link.target='_blank';link.rel='noopener noreferrer';link.setAttribute('aria-label',`${a.name}を新しいタブでひらく`);const qr=button('▧ QR',()=>showQR(a)),copy=button('コピー',()=>copyURL(a.url));qr.setAttribute('aria-label',`${a.name}のQRコード`);copy.setAttribute('aria-label',`${a.name}のURLをコピー`);actions.append(link,qr,copy);card.append(top,el('p','category',a.category),el('h3','',a.name),el('p','description',a.description),actions);
  if(a.id.startsWith('custom-')){const tools=el('div','custom-actions');tools.append(button('編集',()=>edit(a)),button('削除',()=>{deleting=a;$('#delete-name').textContent=a.name;$('#delete-dialog').showModal();}));card.append(tools);}$('#grid').append(card); }
 }
