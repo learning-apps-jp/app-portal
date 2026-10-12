@@ -1,0 +1,16 @@
+import {readFile} from 'node:fs/promises';
+import vm from 'node:vm';
+import assert from 'node:assert/strict';
+const context=vm.createContext({window:{},URL,localStorage:{getItem:()=>null},document:{querySelector:()=>({})}});
+vm.runInContext(await readFile('apps.js','utf8'),context);
+const code=(await readFile('app.js','utf8')).split("$('#qr-copy').onclick")[0];
+vm.runInContext(code+'\nwindow.validate=validate;window.safeURL=safeURL;',context);
+const valid={version:1,custom:[{id:'custom-verify',name:'読み込み確認',url:'https://example.com/',description:'検証用',category:'その他'}],favorites:['constellations']};
+const result=context.window.validate(valid);
+assert.equal(result.custom[0].name,'読み込み確認');assert.equal(result.favorites[0],'constellations');
+assert.throws(()=>context.window.validate(JSON.parse('{"custom":[{"id":"custom-invalid","name":"bad","url":"javascript:alert(1)","description":"","category":"その他"}],"favorites":[]}')));
+assert.throws(()=>context.window.safeURL('https://user:secret@example.com/'));
+assert.throws(()=>context.window.validate({...valid,custom:[...valid.custom,...valid.custom]}));
+assert.throws(()=>context.window.validate({...valid,custom:[{...valid.custom[0],category:'unknown'}]}));
+const filtered=context.window.validate({...valid,favorites:['unknown','constellations','constellations']});assert.equal(filtered.favorites.length,1);
+console.log('PASS: valid backup schema; unsafe URLs, credentials, duplicate IDs, invalid categories rejected; favorites normalized');
