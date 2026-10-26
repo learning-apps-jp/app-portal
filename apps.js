@@ -12,5 +12,6 @@ window.DEFAULT_APPS = [
   ['word-wolf','ワードウルフ','お題をめぐる会話から、少数派を探す。','遊び','❝','orange'],
   ['oekaki-dengon','お絵描き伝言','絵でつないで、みんなで笑おう。','遊び','✎','pink'],
   ['sanrentan-game','サンレンタン！','みんなの予想で盛り上がるゲーム。','遊び','③','blue'],
-  ['one-night-werewolf','ひと晩の人狼','短い時間で楽しむ、人狼の推理。','遊び','☽','purple']
+  ['one-night-werewolf','ひと晩の人狼','短い時間で楽しむ、人狼の推理。','遊び','☽','purple'],
+  ['handball-studio','Handball Studio','ハンドボールの得点・失点・セーブを記録。動画分析と作戦盤で振り返る。','その他','◉','blue']
 ].map(([id,name,description,category,icon,color])=>({id,name,description,category,icon,color,url:`https://learning-apps-jp.github.io/${id}/`}));

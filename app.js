@@ -17,6 +17,7 @@ function el(tag,className,text){const n=document.createElement(tag);if(className
 function button(label,action,className){const b=el('button',className,label);b.type='button';b.addEventListener('click',action);return b;}
 function appIcon(id){
  const icons={
+  'handball-studio':'<circle cx="12" cy="12" r="9"/><path d="m9 8 5-1 3 4-2 5-5 1-3-4Zm0 0L6 5m8 2 2-3m1 7 4 1m-6 4 1 4m-6-3-3 3m0-7-4-1"/>',
   'speed-experiment-camera':'<rect x="3" y="5" width="14" height="14" rx="3"/><path d="m17 10 4-3v10l-4-3"/><circle cx="10" cy="12" r="3"/>',
   'solar-system-lab':'<circle cx="12" cy="12" r="4"/><ellipse cx="12" cy="12" rx="11" ry="5" transform="rotate(-30 12 12)"/><circle cx="20" cy="7" r="1.5" fill="currentColor" stroke="none"/>',
   'constellations':'<path d="m12 3 2.5 6.5L21 12l-6.5 2.5L12 21l-2.5-6.5L3 12l6.5-2.5Z"/><path d="M20 2v4m-2-2h4"/>',
