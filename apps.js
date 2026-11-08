@@ -1,5 +1,6 @@
 // 公開一覧の追加・変更はこのファイルで管理します。
 window.DEFAULT_APPS = [
+  ['venus-phases','金星の満ち欠け','金星を動かして、満ち欠けと見かけの大きさをくらべる。','学び','◐','orange'],
   ['moon-phases','月の満ち欠け','月を動かして、形と時刻による見え方をくらべる。','学び','◒','purple'],
   ['earth-sun-motion','地球と太陽の一日','地球を回して、日の出・正午・日の入りを観察する。','学び','🌏','blue'],
   ['ichiji-denshin','一字伝心','漢字一字のヒントで早答え。3〜8人で遊ぶ連想ゲーム。','遊び','字','orange'],
@@ -18,4 +19,5 @@ window.DEFAULT_APPS = [
   ['one-night-werewolf','ひと晩の人狼','短い時間で楽しむ、人狼の推理。','遊び','☽','purple'],
   ['handball-studio','Handball Studio','ハンドボールの得点・失点・セーブを記録。動画分析と作戦盤で振り返る。','その他','◉','blue']
 ].map(([id,name,description,category,icon,color])=>({id,name,description,category,icon,color,url:`https://learning-apps-jp.github.io/${id}/`}));
+
 
